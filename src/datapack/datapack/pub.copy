@@ -1,0 +1,88 @@
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import LaserScan
+import math
+import random
+
+NUM_POINTS = 360
+RANGE_MIN = 0.12
+RANGE_MAX = 3.5
+
+def create_empty_scan():
+    ranges = [RANGE_MAX] * NUM_POINTS
+    intensities = [100.0] * NUM_POINTS
+    return {
+        "angle_min": math.radians(0),
+        "angle_max": math.radians(359),
+        "angle_increment": math.radians(1),
+        "range_min": RANGE_MIN,
+        "range_max": RANGE_MAX,
+        "ranges": ranges,
+        "intensities": intensities
+    }
+
+def make_the_wall(ranges, center_deg, width_deg):
+    half_width = width_deg // 2
+    for offset in range(-half_width, half_width + 1):
+        idx = (center_deg + offset) % NUM_POINTS
+        ranges[idx] = 0.4
+
+# 벽 패턴 정의 (subscriber 범위와 맞춤)
+def pattern_front_wall(scan):
+    make_the_wall(scan["ranges"], 0, 40)   # subscriber [350:360]+[0:10]
+
+def pattern_left_wall(scan):
+    make_the_wall(scan["ranges"], 90, 21)  # subscriber [80:100]
+
+def pattern_right_wall(scan):
+    make_the_wall(scan["ranges"], 270, 21) # subscriber [260:280]
+
+def generate_single_scan(pattern_name):
+    scan = create_empty_scan()
+    if pattern_name == "front_wall":
+        pattern_front_wall(scan)
+    elif pattern_name == "left_wall":
+        pattern_left_wall(scan)
+    elif pattern_name == "right_wall":
+        pattern_right_wall(scan)
+    return scan
+
+AVAILABLE_PATTERNS = ["front_wall", "left_wall", "right_wall"]
+
+class MockLidarPublisher(Node):
+    def __init__(self):
+        super().__init__("lidar_mock_publisher")
+        self.publisher_ = self.create_publisher(LaserScan, "/scan_mock", 10)
+        self.timer = self.create_timer(2.0, self.timer_callback)
+        self.get_logger().info("Mock Lidar Publisher Started!")
+
+    def timer_callback(self):
+        pattern = random.choices(
+            AVAILABLE_PATTERNS,
+            weights=[0.3, 0.35, 0.35]
+        )[0]
+        scan = generate_single_scan(pattern)
+
+        msg = LaserScan()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = "laser"
+        msg.angle_min = scan["angle_min"]
+        msg.angle_max = scan["angle_max"]
+        msg.angle_increment = scan["angle_increment"]
+        msg.range_min = scan["range_min"]
+        msg.range_max = scan["range_max"]
+        msg.ranges = scan["ranges"]
+        msg.intensities = scan["intensities"]
+
+        self.publisher_.publish(msg)
+        self.get_logger().info(f"[Publish] pattern: {pattern}")
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MockLidarPublisher()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()

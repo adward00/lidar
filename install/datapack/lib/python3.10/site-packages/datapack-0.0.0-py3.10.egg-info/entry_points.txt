@@ -1,0 +1,6 @@
+[console_scripts]
+data_node = datapack.data_node:main
+publisher = datapack.publisher:main
+ros = datapack.ros:main
+subscriber = datapack.subscriber:main
+

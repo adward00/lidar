@@ -1,0 +1,23 @@
+[0.382s] Invoking command in '/home/mg0220/Lidar/src/datapack': PYTHONPATH=/home/mg0220/Lidar/build/datapack/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mg0220/Lidar/install/datapack/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/datapack build --build-base /home/mg0220/Lidar/build/datapack/build install --record /home/mg0220/Lidar/build/datapack/install.log --single-version-externally-managed install_data
+[0.511s] running egg_info
+[0.511s] writing ../../build/datapack/datapack.egg-info/PKG-INFO
+[0.512s] writing dependency_links to ../../build/datapack/datapack.egg-info/dependency_links.txt
+[0.512s] writing entry points to ../../build/datapack/datapack.egg-info/entry_points.txt
+[0.512s] writing requirements to ../../build/datapack/datapack.egg-info/requires.txt
+[0.512s] writing top-level names to ../../build/datapack/datapack.egg-info/top_level.txt
+[0.513s] reading manifest file '../../build/datapack/datapack.egg-info/SOURCES.txt'
+[0.514s] writing manifest file '../../build/datapack/datapack.egg-info/SOURCES.txt'
+[0.514s] running build
+[0.514s] running build_py
+[0.514s] running install
+[0.515s] running install_lib
+[0.516s] running install_data
+[0.516s] running install_egg_info
+[0.517s] removing '/home/mg0220/Lidar/install/datapack/lib/python3.10/site-packages/datapack-0.0.0-py3.10.egg-info' (and everything under it)
+[0.517s] Copying ../../build/datapack/datapack.egg-info to /home/mg0220/Lidar/install/datapack/lib/python3.10/site-packages/datapack-0.0.0-py3.10.egg-info
+[0.518s] running install_scripts
+[0.529s] Installing data_node script to /home/mg0220/Lidar/install/datapack/lib/datapack
+[0.530s] Installing publisher script to /home/mg0220/Lidar/install/datapack/lib/datapack
+[0.530s] Installing subscriber script to /home/mg0220/Lidar/install/datapack/lib/datapack
+[0.530s] writing list of installed files to '/home/mg0220/Lidar/build/datapack/install.log'
+[0.543s] Invoked command in '/home/mg0220/Lidar/src/datapack' returned '0': PYTHONPATH=/home/mg0220/Lidar/build/datapack/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mg0220/Lidar/install/datapack/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/datapack build --build-base /home/mg0220/Lidar/build/datapack/build install --record /home/mg0220/Lidar/build/datapack/install.log --single-version-externally-managed install_data
